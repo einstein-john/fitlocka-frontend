@@ -1,0 +1,16 @@
+# FITLOCKA — robots rules for search crawlers
+User-agent: *
+Allow: /
+
+# Private / authenticated areas — do not index app shells for account flows
+Disallow: /account/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /login
+Disallow: /register
+Disallow: /auth/
+
+# Hidden management panel (still protect with server-side auth in production)
+Disallow: /__admin
+
+Sitemap: https://fit.damtowise.xyz/sitemap.xml

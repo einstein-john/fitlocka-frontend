@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FITLOCKA. — Retro Jerseys</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ee;
+    --cream: #ede9e0;
+    --accent: #d4401a;
+    --accent2: #1a3d6b;
+    --mid: #6b6560;
+    --border: rgba(10,10,10,0.12);
+    --card-bg: #f0ece3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  /* ── MARQUEE ── */
+  .ticker {
+    background: var(--black);
+    color: var(--white);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 28s linear infinite;
+  }
+  .ticker-inner span { margin: 0 48px; }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1.5px solid var(--black);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0 40px;
+    height: 68px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    position: relative;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  .cart-btn {
+    background: var(--black) !important;
+    color: var(--white) !important;
+    border: none !important;
+    padding: 9px 22px !important;
+    font-family: 'Space Mono', monospace !important;
+    font-size: 10px !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
+  }
+  .cart-btn:hover { background: var(--accent) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 110px);
+    border-bottom: 1.5px solid var(--black);
+  }
+  .hero-left {
+    padding: 80px 60px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1.5px solid var(--black);
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    border: 1px solid var(--border);
+    display: inline-block;
+    padding: 6px 14px;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 10vw, 148px);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-headline em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-sub {
+    margin-top: 40px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .btn-primary {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 16px 36px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost {
+    background: none;
+    color: var(--black);
+    border: 1.5px solid var(--black);
+    padding: 15px 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--black); color: var(--white); }
+
+  .hero-right {
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-jersey-wrap {
+    position: relative;
+    z-index: 2;
+  }
+  .hero-jersey {
+    width: 340px;
+    height: 420px;
+    background: var(--accent2);
+    position: relative;
+    clip-path: polygon(18% 0%, 82% 0%, 100% 12%, 100% 100%, 0% 100%, 0% 12%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 8px 12px 40px rgba(0,0,0,0.18);
+  }
+  .jersey-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 140px;
+    color: rgba(255,255,255,0.12);
+    position: absolute;
+  }
+  .jersey-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: 0.15em;
+    position: absolute;
+    bottom: 80px;
+  }
+  .jersey-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: var(--accent);
+  }
+  .hero-badge {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background: var(--accent);
+    color: var(--white);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 1.2;
+    z-index: 5;
+  }
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 300px;
+    color: rgba(0,0,0,0.04);
+    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-stats {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    display: flex;
+    gap: 32px;
+  }
+  .stat { font-family: 'Space Mono', monospace; }
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    display: block;
+    color: var(--black);
+  }
+  .stat-label { font-size: 10px; color: var(--mid); letter-spacing: 0.1em; }
+
+  /* ── BRANDS BAR ── */
+  .brands-bar {
+    padding: 28px 60px;
+    border-bottom: 1.5px solid var(--black);
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    overflow-x: auto;
+  }
+  .brands-bar-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--mid);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .brand-pill {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    color: var(--mid);
+    white-space: nowrap;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .brand-pill:hover { color: var(--black); }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .view-all {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .view-all:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── FEATURED PRODUCTS ── */
+  .featured {
+    padding: 80px 60px;
+    border-bottom: 1.5px solid var(--black);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    border: 1.5px solid var(--black);
+  }
+  .product-card {
+    background: var(--card-bg);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-right: 1.5px solid var(--black);
+    transition: transform 0.25s;
+  }
+  .product-card:last-child { border-right: none; }
+  .product-card:hover { transform: translateY(-4px); }
+  .product-card:hover .product-image { filter: brightness(0.92); }
+
+  .product-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    background: linear-gradient(135deg, #c5c0b8 0%, #a8a29a 100%);
+    position: relative;
+    overflow: hidden;
+    transition: filter 0.25s;
+  }
+  /* Placeholder jersey silhouettes */
+  .product-image-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .jersey-svg {
+    width: 70%;
+    height: 80%;
+    position: relative;
+  }
+
+  .product-tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--accent);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+
+  .product-info {
+    padding: 18px 20px 22px;
+    border-top: 1.5px solid var(--black);
+  }
+  .product-sport {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--mid);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .product-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+  .product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .product-era {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--mid);
+    font-style: italic;
+  }
+
+  /* ── SPLIT PROMO ── */
+  .promo-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1.5px solid var(--black);
+  }
+  .promo-panel {
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .promo-panel:first-child {
+    background: var(--black);
+    color: var(--white);
+    border-right: 1.5px solid var(--black);
+  }
+  .promo-panel:last-child {
+    background: var(--accent);
+    color: var(--white);
+  }
+  .promo-bg-num {
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 260px;
+    opacity: 0.08;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .promo-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 14px;
+  }
+  .promo-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 24px;
+  }
+  .btn-white {
+    background: var(--white);
+    color: var(--black);
+    border: none;
+    padding: 14px 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    transition: opacity 0.2s;
+    width: fit-content;
+  }
+  .btn-white:hover { opacity: 0.85; }
+
+  /* ── FILTER ROW ── */
+  .filter-row {
+    padding: 24px 60px;
+    border-bottom: 1.5px solid var(--black);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    overflow-x: auto;
+  }
+  .filter-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--mid);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+  .filter-chip {
+    border: 1.5px solid var(--black);
+    background: none;
+    padding: 8px 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .filter-chip:hover, .filter-chip.active {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  /* ── NEW ARRIVALS ── */
+  .new-arrivals {
+    padding: 80px 60px;
+    border-bottom: 1.5px solid var(--black);
+  }
+  .arrivals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    border: 1.5px solid var(--black);
+  }
+  .arrival-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    border-right: 1.5px solid var(--black);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .arrival-card:last-child { border-right: none; }
+  .arrival-card:hover { background: var(--cream); }
+  .arrival-thumb {
+    width: 120px;
+    height: 140px;
+    border-right: 1.5px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .arrival-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .arrival-sport {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--mid);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .arrival-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    margin: 6px 0;
+  }
+  .arrival-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ── ABOUT STRIP ── */
+  .about-strip {
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    border-bottom: 1.5px solid var(--black);
+    background: var(--cream);
+  }
+  .about-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+  }
+  .about-headline em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .about-body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3a3630;
+    margin-bottom: 32px;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .about-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .about-stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    padding: 80px 60px;
+    border-bottom: 1.5px solid var(--black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+  }
+  .newsletter-left { max-width: 480px; }
+  .newsletter-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--mid);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .newsletter-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .newsletter-sub {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+  .newsletter-form {
+    display: flex;
+    flex: 1;
+    max-width: 480px;
+    border: 1.5px solid var(--black);
+  }
+  .newsletter-input {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 16px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+  }
+  .newsletter-submit {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 16px 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-left: 1.5px solid var(--black);
+    transition: background 0.2s;
+  }
+  .newsletter-submit:hover { background: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 60px 32px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+  .footer-brand span { color: var(--accent); }
+  .footer-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.5);
+    max-width: 260px;
+  }
+  .footer-col-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── JERSEY SVG colors ── */
+  .j1 { --j-color: #1a3d6b; --j-stripe: #d4401a; }
+  .j2 { --j-color: #d4401a; --j-stripe: #f5f3ee; }
+  .j3 { --j-color: #1a1a1a; --j-stripe: #d4401a; }
+  .j4 { --j-color: #2c5f2e; --j-stripe: #f5f3ee; }
+
+  .j5 { --j-color: #7b2d8b; --j-stripe: #f5f3ee; }
+  .j6 { --j-color: #c47900; --j-stripe: #1a1a1a; }
+  .j7 { --j-color: #1a3d6b; --j-stripe: #f5f3ee; }
+
+  .jersey-block {
+    width: 80%;
+    height: 75%;
+    background: var(--j-color);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 14%, 100% 100%, 0% 100%, 0% 14%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .jersey-block::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: var(--j-stripe);
+  }
+  .jersey-num-inner {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-headline, .hero-sub { animation: fadeUp 0.7s ease both; }
+  .hero-sub { animation-delay: 0.15s; }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>FREE SHIPPING ON ORDERS OVER $150</span>
+    <span>★</span>
+    <span>AUTHENTIC RETRO JERSEYS</span>
+    <span>★</span>
+    <span>EST. 2018</span>
+    <span>★</span>
+    <span>WORLDWIDE DELIVERY</span>
+    <span>★</span>
+    <span>LIMITED EDITION DROPS</span>
+    <span>★</span>
+    <span>FREE SHIPPING ON ORDERS OVER $150</span>
+    <span>★</span>
+    <span>AUTHENTIC RETRO JERSEYS</span>
+    <span>★</span>
+    <span>EST. 2018</span>
+    <span>★</span>
+    <span>WORLDWIDE DELIVERY</span>
+    <span>★</span>
+    <span>LIMITED EDITION DROPS</span>
+    <span>★</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">Collections</a></li>
+    <li><a href="#">Eras</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="nav-logo">FITL<span>O</span>CKA.</div>
+  <div class="nav-actions">
+    <button>⌕</button>
+    <button class="cart-btn">Cart (0)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-tag">New Drop — Summer '24</div>
+      <div class="hero-headline">
+        THE<br>
+        <em>CLASSICS</em><br>
+        LIVE ON.
+      </div>
+    </div>
+    <div class="hero-sub">
+      <button class="btn-primary">Shop Now</button>
+      <button class="btn-ghost">View Collection</button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-bg-text">23</div>
+    <div class="hero-badge">
+      NEW<br>DROP<br>2024
+    </div>
+    <div class="hero-jersey-wrap">
+      <div class="hero-jersey">
+        <div class="jersey-stripe"></div>
+        <div class="jersey-number">23</div>
+        <div class="jersey-name">FITLOCKA</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">500+</span>
+        <span class="stat-label">Jerseys</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">80s–00s</span>
+        <span class="stat-label">Eras</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">12+</span>
+        <span class="stat-label">Sports</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<div class="brands-bar">
+  <span class="brands-bar-label">Featured In</span>
+  <span class="brand-pill">NBA</span>
+  <span class="brand-pill">NFL</span>
+  <span class="brand-pill">NHL</span>
+  <span class="brand-pill">MLB</span>
+  <span class="brand-pill">SOCCER</span>
+  <span class="brand-pill">COLLEGE</span>
+  <span class="brand-pill">RUGBY</span>
+  <span class="brand-pill">MOTORSPORT</span>
+</div>
+
+<!-- FILTER ROW -->
+<div class="filter-row">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-chip active">All</button>
+  <button class="filter-chip">Basketball</button>
+  <button class="filter-chip">Football</button>
+  <button class="filter-chip">Soccer</button>
+  <button class="filter-chip">Hockey</button>
+  <button class="filter-chip">Baseball</button>
+  <button class="filter-chip">80s</button>
+  <button class="filter-chip">90s</button>
+  <button class="filter-chip">00s</button>
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Curated Picks</div>
+      <div class="section-title">FEATURED DROPS</div>
+    </div>
+    <a href="#" class="view-all">View All →</a>
+  </div>
+  <div class="products-grid">
+
+    <!-- Card 1 -->
+    <div class="product-card">
+      <div class="product-image">
+        <div class="product-image-inner j1">
+          <div class="jersey-block" style="--j-color:#1a3d6b;--j-stripe:#d4401a;">
+            <span class="jersey-num-inner">33</span>
+          </div>
+        </div>
+        <div class="product-tag">Best Seller</div>
+      </div>
+      <div class="product-info">
+        <div class="product-sport">Basketball</div>
+        <div class="product-name">Chicago Bulls<br>Home Jersey</div>
+        <div class="product-meta">
+          <span class="product-price">$145</span>
+          <span class="product-era">1996–97</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="product-card">
+      <div class="product-image">
+        <div class="product-image-inner">
+          <div class="jersey-block" style="--j-color:#d4401a;--j-stripe:#f5f3ee;">
+            <span class="jersey-num-inner">7</span>
+          </div>
+        </div>
+        <div class="product-tag" style="background:var(--accent2)">Rare Find</div>
+      </div>
+      <div class="product-info">
+        <div class="product-sport">Soccer</div>
+        <div class="product-name">Manchester United<br>Away Kit</div>
+        <div class="product-meta">
+          <span class="product-price">$128</span>
+          <span class="product-era">1998–99</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="product-card">
+      <div class="product-image">
+        <div class="product-image-inner">
+          <div class="jersey-block" style="--j-color:#1a1a1a;--j-stripe:#d4401a;">
+            <span class="jersey-num-inner">99</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-sport">Hockey</div>
+        <div class="product-name">LA Kings<br>Road Jersey</div>
+        <div class="product-meta">
+          <span class="product-price">$162</span>
+          <span class="product-era">1988–89</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="product-card">
+      <div class="product-image">
+        <div class="product-image-inner">
+          <div class="jersey-block" style="--j-color:#2c5f2e;--j-stripe:#f5f3ee;">
+            <span class="jersey-num-inner">16</span>
+          </div>
+        </div>
+        <div class="product-tag" style="background:#1a3d6b">New In</div>
+      </div>
+      <div class="product-info">
+        <div class="product-sport">Football</div>
+        <div class="product-name">Green Bay Packers<br>Home Jersey</div>
+        <div class="product-meta">
+          <span class="product-price">$138</span>
+          <span class="product-era">1995–96</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO SPLIT -->
+<div class="promo-split">
+  <div class="promo-panel">
+    <div class="promo-bg-num">90s</div>
+    <div class="promo-label">The Era Collection</div>
+    <div class="promo-title">THE 90s<br>VAULT</div>
+    <button class="btn-white">Shop The 90s</button>
+  </div>
+  <div class="promo-panel">
+    <div class="promo-bg-num">★</div>
+    <div class="promo-label">Limited Supply</div>
+    <div class="promo-title">GAME<br>WORN<br>GRAILS</div>
+    <button class="btn-white">View Grails</button>
+  </div>
+</div>
+
+<!-- NEW ARRIVALS -->
+<section class="new-arrivals">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Just Landed</div>
+      <div class="section-title">NEW ARRIVALS</div>
+    </div>
+    <a href="#" class="view-all">See All →</a>
+  </div>
+  <div class="arrivals-grid">
+
+    <div class="arrival-card">
+      <div class="arrival-thumb" style="background:#ede0d4;">
+        <div class="jersey-block" style="width:70%;height:70%;--j-color:#7b2d8b;--j-stripe:#f5f3ee;">
+          <span class="jersey-num-inner" style="font-size:32px">34</span>
+        </div>
+      </div>
+      <div class="arrival-info">
+        <div>
+          <div class="arrival-sport">Basketball</div>
+          <div class="arrival-name">Phoenix Suns<br>Purple Jersey</div>
+        </div>
+        <div class="arrival-price">$152</div>
+      </div>
+    </div>
+
+    <div class="arrival-card">
+      <div class="arrival-thumb" style="background:#dde8d4;">
+        <div class="jersey-block" style="width:70%;height:70%;--j-color:#c47900;--j-stripe:#1a1a1a;">
+          <span class="jersey-num-inner" style="font-size:32px">10</span>
+        </div>
+      </div>
+      <div class="arrival-info">
+        <div>
+          <div class="arrival-sport">Soccer</div>
+          <div class="arrival-name">Brazil<br>Away 2002</div>
+        </div>
+        <div class="arrival-price">$119</div>
+      </div>
+    </div>
+
+    <div class="arrival-card" style="border-right:none">
+      <div class="arrival-thumb" style="background:#d4dde8;">
+        <div class="jersey-block" style="width:70%;height:70%;--j-color:#1a3d6b;--j-stripe:#f5f3ee;">
+          <span class="jersey-num-inner" style="font-size:32px">68</span>
+        </div>
+      </div>
+      <div class="arrival-info">
+        <div>
+          <div class="arrival-sport">Baseball</div>
+          <div class="arrival-name">NY Yankees<br>Road Jersey</div>
+        </div>
+        <div class="arrival-price">$135</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<section class="about-strip">
+  <div>
+    <div class="about-headline">
+      LOCKED IN.<br>LOCKED <em>DOWN.</em>
+    </div>
+    <div class="about-stats">
+      <div>
+        <div class="about-stat-num">500+</div>
+        <div class="about-stat-label">Authentic jerseys in stock</div>
+      </div>
+      <div>
+        <div class="about-stat-num">12K+</div>
+        <div class="about-stat-label">Happy customers worldwide</div>
+      </div>
+      <div>
+        <div class="about-stat-num">40+</div>
+        <div class="about-stat-label">Years of sporting history</div>
+      </div>
+      <div>
+        <div class="about-stat-num">100%</div>
+        <div class="about-stat-label">Authenticity guaranteed</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="about-body">
+      FITLOCKA. is where sporting heritage meets streetwear culture. We source and curate authentic retro jerseys from every era, every sport, every legend. Each piece is verified, graded, and ready to wear — or frame.
+    </p>
+    <p class="about-body">
+      From the hardwood floors of the 90s NBA to the green fields of European football's golden era, we've got the threads that tell the story.
+    </p>
+    <button class="btn-primary">Our Story</button>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-left">
+    <div class="newsletter-eyebrow">Stay in the loop</div>
+    <div class="newsletter-title">FIRST TO<br>THE DROP.</div>
+    <p class="newsletter-sub">New arrivals, limited restocks, and exclusive access. No spam — just the good stuff.</p>
+  </div>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" placeholder="your@email.com">
+    <button class="newsletter-submit">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">FITL<span>O</span>CKA.</div>
+      <p class="footer-desc">Authentic retro jerseys from the eras that defined sport. Sourced globally, delivered worldwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Shop</div>
+      <ul class="footer-links">
+        <li><a href="#">Basketball</a></li>
+        <li><a href="#">Football</a></li>
+        <li><a href="#">Soccer</a></li>
+        <li><a href="#">Hockey</a></li>
+        <li><a href="#">Baseball</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Collections</div>
+      <ul class="footer-links">
+        <li><a href="#">The 80s Vault</a></li>
+        <li><a href="#">The 90s Vault</a></li>
+        <li><a href="#">Y2K Era</a></li>
+        <li><a href="#">Game Worn</a></li>
+        <li><a href="#">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Info</div>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Authenticity</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 FITLOCKA. All rights reserved.</span>
+    <span>Designed with ❤ for the culture</span>
+  </div>
+</footer>
+
+<script>
+  // Filter chips
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
