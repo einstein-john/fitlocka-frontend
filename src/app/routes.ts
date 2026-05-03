@@ -14,6 +14,7 @@ import SitemapPage from '@/app/components/pages/SitemapPage';
 import Login from '@/app/components/pages/Login';
 import Register from '@/app/components/pages/Register';
 import MagicLinkCallback from '@/app/components/pages/MagicLinkCallback';
+import { LegacyEmailConfirmationRedirect, LegacyMagicLinkRedirect } from '@/app/components/pages/LegacyAuthRedirects';
 import EmailConfirmationCallback from '@/app/components/pages/EmailConfirmationCallback';
 import CartPage from '@/app/components/pages/CartPage';
 import Checkout from '@/app/components/pages/Checkout';
@@ -48,6 +49,8 @@ export const router = createBrowserRouter([
           { path: 'sitemap', Component: SitemapPage },
           { path: 'product/:id', Component: ProductDetail },
           { path: 'login', Component: Login },
+          { path: 'login/auth/magic-link', Component: LegacyMagicLinkRedirect },
+          { path: 'login/auth/email-confirmation', Component: LegacyEmailConfirmationRedirect },
           { path: 'register', Component: Register },
           { path: 'auth/magic-link', Component: MagicLinkCallback },
           { path: 'auth/email-confirmation', Component: EmailConfirmationCallback },
