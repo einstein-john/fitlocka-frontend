@@ -34,9 +34,11 @@ export default function FilterSheet({
 }) {
   const [draft, setDraft] = useState<FilterState>(value);
 
+  // Depend on the fields, not the object identity — the parent passes a fresh
+  // literal every render, which would otherwise discard un-applied edits.
   useEffect(() => {
-    if (open) setDraft(value);
-  }, [open, value]);
+    if (open) setDraft({ categoryId: value.categoryId, sort: value.sort });
+  }, [open, value.categoryId, value.sort]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';

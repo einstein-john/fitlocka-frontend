@@ -5,11 +5,10 @@ import RequireAuth from '@/app/components/auth/RequireAuth';
 import { useCart } from '@/app/context/CartContext';
 import { formatPrice } from '@/app/components/product/ProductTile';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
+import { FREE_SHIPPING_THRESHOLD, qualifiesForFreeShipping } from '@/lib/shipping';
 
 const mono = { fontFamily: "'Space Mono', monospace" } as const;
 const bebas = { fontFamily: "'Bebas Neue', sans-serif" } as const;
-
-const FREE_SHIPPING_THRESHOLD = 150;
 
 function CartInner() {
   const { cart, setQty, remove, loading } = useCart();
@@ -30,7 +29,7 @@ function CartInner() {
   }
 
   const subtotal = cart.items.reduce((sum, i) => sum + Number(i.product?.price ?? 0) * i.quantity, 0);
-  const freeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
+  const freeShipping = qualifiesForFreeShipping(subtotal);
 
   const changeQty = async (itemId: number, q: number) => {
     if (q < 1) return;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import SeoHead from '@/app/components/SeoHead';
@@ -7,20 +7,35 @@ import { useAuth } from '@/app/context/AuthContext';
 import { useCart } from '@/app/context/CartContext';
 import { formatPrice } from '@/app/components/product/ProductTile';
 import { getUserFacingErrorMessage } from '@/lib/api/userError';
+import { EXPRESS_SHIPPING_FEE, qualifiesForFreeShipping } from '@/lib/shipping';
 
 const mono = { fontFamily: "'Space Mono', monospace" } as const;
 const bebas = { fontFamily: "'Bebas Neue', sans-serif" } as const;
 
 const SHIPPING_KEY = 'fitlocka.shipping.v1';
-const EXPRESS_PRICE = 24;
+/** Pre-scoping key — one shared address for every account on the device. Cleared on sight. */
+const LEGACY_SHIPPING_KEY = SHIPPING_KEY;
 
 type Shipping = { name: string; line1: string; city: string; state: string; zip: string };
 const emptyShipping: Shipping = { name: '', line1: '', city: '', state: '', zip: '' };
 
-function loadShipping(): Shipping {
+/** Addresses are stored per account so one user cannot load another's on a shared device. */
+function shippingKey(userId: number | undefined): string | null {
+  return userId == null ? null : `${SHIPPING_KEY}.u${userId}`;
+}
+
+function loadShipping(key: string | null): Shipping {
+  if (!key) return emptyShipping;
   try {
-    const raw = localStorage.getItem(SHIPPING_KEY);
-    return raw ? { ...emptyShipping, ...(JSON.parse(raw) as Shipping) } : emptyShipping;
+    // Drop the pre-scoping blob rather than migrating it — it may belong to another account.
+    localStorage.removeItem(LEGACY_SHIPPING_KEY);
+    const raw = localStorage.getItem(key);
+    if (!raw) return emptyShipping;
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return emptyShipping;
+    const o = parsed as Record<string, unknown>;
+    const str = (v: unknown) => (typeof v === 'string' ? v : '');
+    return { name: str(o.name), line1: str(o.line1), city: str(o.city), state: str(o.state), zip: str(o.zip) };
   } catch {
     return emptyShipping;
   }
@@ -34,23 +49,35 @@ function CheckoutInner() {
   const { cart, refresh } = useCart();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
-  const [shipping, setShipping] = useState<Shipping>(loadShipping);
+  const userId = user?.id;
+  const [shipping, setShipping] = useState<Shipping>(() => loadShipping(shippingKey(userId)));
   const [express, setExpress] = useState(false);
+  const loadedFor = useRef(shippingKey(userId));
 
   useEffect(() => {
-    try {
-      localStorage.setItem(SHIPPING_KEY, JSON.stringify(shipping));
-    } catch {
-      /* non-fatal */
-    }
-  }, [shipping]);
+    const key = shippingKey(userId);
+    if (loadedFor.current === key) return;
+    loadedFor.current = key;
+    setShipping(loadShipping(key));
+  }, [userId]);
 
   const items = cart?.items ?? [];
   const subtotal = items.reduce((sum, i) => sum + Number(i.product?.price ?? 0) * i.quantity, 0);
-  const shippingCost = express ? EXPRESS_PRICE : 0;
+  const freeStandard = qualifiesForFreeShipping(subtotal);
+  const shippingCost = express ? EXPRESS_SHIPPING_FEE : 0;
   const total = subtotal + shippingCost;
 
-  const set = (k: keyof Shipping) => (e: React.ChangeEvent<HTMLInputElement>) => setShipping((s) => ({ ...s, [k]: e.target.value }));
+  const set = (k: keyof Shipping) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const next = { ...shipping, [k]: e.target.value };
+    setShipping(next);
+    const key = shippingKey(userId);
+    if (!key) return;
+    try {
+      localStorage.setItem(key, JSON.stringify(next));
+    } catch {
+      /* non-fatal */
+    }
+  };
 
   const go = async () => {
     if (!items.length) {
@@ -123,15 +150,15 @@ function CheckoutInner() {
             <span className="flex items-center gap-2.5" style={{ ...mono, fontSize: '12px' }}>
               {radioDot(!express)} Standard · 4–6 days
             </span>
-            <span className="font-bold text-[var(--accent)]" style={{ ...mono, fontSize: '12px' }}>
-              FREE
+            <span className={freeStandard ? 'font-bold text-[var(--accent)]' : 'text-[var(--mid)]'} style={{ ...mono, fontSize: '12px' }}>
+              {freeStandard ? 'FREE' : 'Calculated at checkout'}
             </span>
           </button>
           <button type="button" className={`${radioBox(express)} bg-transparent w-full text-left`} onClick={() => setExpress(true)}>
             <span className="flex items-center gap-2.5" style={{ ...mono, fontSize: '12px' }}>
               {radioDot(express)} Express · 1–2 days
             </span>
-            <span style={{ ...mono, fontSize: '12px' }}>{formatPrice(EXPRESS_PRICE)}</span>
+            <span style={{ ...mono, fontSize: '12px' }}>{formatPrice(EXPRESS_SHIPPING_FEE)}</span>
           </button>
         </div>
 
@@ -178,8 +205,8 @@ function CheckoutInner() {
             <span className="text-[var(--mid)]" style={{ ...mono, fontSize: '12px' }}>
               Shipping
             </span>
-            <span className={shippingCost === 0 ? 'text-[var(--accent)]' : ''} style={{ ...mono, fontSize: '12px' }}>
-              {shippingCost === 0 ? 'FREE' : formatPrice(shippingCost)}
+            <span className={express ? '' : freeStandard ? 'text-[var(--accent)]' : 'text-[var(--mid)]'} style={{ ...mono, fontSize: '12px' }}>
+              {express ? formatPrice(shippingCost) : freeStandard ? 'FREE' : 'Calculated at checkout'}
             </span>
           </div>
           <div className="flex justify-between border-t-[1.5px] border-[var(--black)] pt-3">

@@ -25,10 +25,19 @@ type WishlistCtx = {
 const KEY = 'fitlocka.wishlist.v1';
 const Ctx = createContext<WishlistCtx | null>(null);
 
+function isWishItem(v: unknown): v is WishItem {
+  if (!v || typeof v !== 'object' || Array.isArray(v)) return false;
+  const o = v as Record<string, unknown>;
+  return typeof o.id === 'number' && Number.isFinite(o.id) && typeof o.name === 'string' && typeof o.price === 'number';
+}
+
+/** localStorage is user-writable, so anything that isn't a well-formed list is discarded. */
 function load(): WishItem[] {
   try {
     const raw = localStorage.getItem(KEY);
-    return raw ? (JSON.parse(raw) as WishItem[]) : [];
+    if (!raw) return [];
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(isWishItem) : [];
   } catch {
     return [];
   }
