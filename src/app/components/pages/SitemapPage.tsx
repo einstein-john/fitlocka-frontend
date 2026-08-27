@@ -23,7 +23,7 @@ export default function SitemapPage() {
   return (
     <>
       <SeoHead title="Sitemap — FITLOCKA" description="All public pages on FITLOCKA for quick navigation and search discovery." canonicalPath="/sitemap" />
-      <section className="min-h-screen px-[60px] py-20 max-w-2xl">
+      <section className="min-h-screen px-5 lg:px-[60px] py-12 lg:py-20 pb-24 lg:pb-20 max-w-2xl">
         <div className="mb-2.5 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
           Discovery
         </div>

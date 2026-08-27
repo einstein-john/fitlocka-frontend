@@ -10,7 +10,7 @@ export default function About() {
         jsonLd={defaultJsonLdOrganization()}
       />
       <section className="min-h-screen">
-      <div className="py-[120px] px-[60px] border-b-[1.5px] border-[var(--black)] bg-[var(--cream)]">
+      <div className="py-16 px-5 lg:py-[120px] lg:px-[60px] border-b-[1.5px] border-[var(--black)] bg-[var(--cream)]">
         <div className="max-w-[900px] mx-auto text-center">
           <div className="mb-4 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
             Est. 2018
@@ -26,8 +26,8 @@ export default function About() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 border-b-[1.5px] border-[var(--black)]">
-        <div className="px-[60px] py-20 border-r-[1.5px] border-[var(--black)]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 border-b-[1.5px] border-[var(--black)]">
+        <div className="px-5 py-12 lg:px-[60px] lg:py-20 border-b-[1.5px] lg:border-b-0 lg:border-r-[1.5px] border-[var(--black)]">
           <div className="mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '48px', letterSpacing: '0.02em' }}>
             OUR MISSION
           </div>
@@ -39,7 +39,7 @@ export default function About() {
           </p>
         </div>
 
-        <div className="px-[60px] py-20">
+        <div className="px-5 py-12 lg:px-[60px] lg:py-20">
           <div className="mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '48px', letterSpacing: '0.02em' }}>
             WHY RETRO
           </div>
@@ -52,7 +52,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="py-20 px-[60px] bg-[var(--black)] text-[var(--white)]">
+      <div className="py-14 px-5 pb-24 lg:py-20 lg:px-[60px] lg:pb-20 bg-[var(--black)] text-[var(--white)]">
         <div className="text-center max-w-[900px] mx-auto">
           <div className="mb-8" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '64px', letterSpacing: '0.02em', lineHeight: '1' }}>
             BY THE NUMBERS

@@ -27,7 +27,7 @@ export default function OrdersList() {
   return (
     <>
       <SeoHead title="Orders — FITLOCKA" description="Your FITLOCKA order history." canonicalPath="/account/orders" noindex />
-      <section className="min-h-screen px-[60px] py-16 max-w-3xl">
+      <section className="min-h-screen px-5 lg:px-[60px] py-10 lg:py-16 pb-24 lg:pb-16 max-w-3xl">
         <div className="mb-2.5 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
           History
         </div>

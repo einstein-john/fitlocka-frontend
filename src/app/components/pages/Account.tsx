@@ -64,7 +64,7 @@ export default function Account() {
   return (
     <>
       <SeoHead title="My account — FITLOCKA" description="Manage your FITLOCKA profile and orders." canonicalPath="/account" noindex />
-      <section className="min-h-screen px-[60px] py-16 max-w-xl">
+      <section className="min-h-screen px-5 lg:px-[60px] py-10 lg:py-16 pb-24 lg:pb-16 max-w-xl">
         <div className="mb-2.5 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
           Profile
         </div>

@@ -28,7 +28,7 @@ export default function PolicyPage({
     <>
       <SeoHead title={title} description={description} canonicalPath={canonicalPath} jsonLd={defaultJsonLdOrganization()} />
       <section className="min-h-screen">
-        <div className="py-16 md:py-24 px-[60px] border-b-[1.5px] border-[var(--black)] bg-[var(--cream)]">
+        <div className="py-12 md:py-24 px-5 lg:px-[60px] border-b-[1.5px] border-[var(--black)] bg-[var(--cream)]">
           <div className="max-w-[720px]">
             <div className="mb-4 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               {heroEyebrow}
@@ -47,7 +47,7 @@ export default function PolicyPage({
             </p>
           </div>
         </div>
-        <div className="py-16 px-[60px] max-w-[720px]">
+        <div className="py-12 lg:py-16 px-5 lg:px-[60px] pb-24 lg:pb-16 max-w-[720px]">
           <div className="space-y-8 text-[15px] leading-[1.85] text-[#3a3630]">{children}</div>
           <nav className="mt-14 pt-8 border-t border-[var(--border)] flex flex-wrap gap-x-6 gap-y-2 text-[13px]" style={{ fontFamily: "'Space Mono', monospace" }}>
             <Link to="/authenticity" className="text-[var(--accent)] underline">

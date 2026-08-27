@@ -1,7 +1,7 @@
 export default function PromoSplit() {
   return (
-    <div className="grid grid-cols-2 border-b-[1.5px] border-[var(--black)]">
-      <div className="px-[60px] py-20 relative overflow-hidden min-h-[460px] flex flex-col justify-end bg-[var(--black)] text-[var(--white)] border-r-[1.5px] border-[var(--black)]">
+    <div className="grid grid-cols-1 lg:grid-cols-2 border-b-[1.5px] border-[var(--black)]">
+      <div className="px-5 py-14 lg:px-[60px] lg:py-20 relative overflow-hidden min-h-[360px] lg:min-h-[460px] flex flex-col justify-end bg-[var(--black)] text-[var(--white)] border-b-[1.5px] lg:border-b-0 lg:border-r-[1.5px] border-[var(--black)]">
         <div
           className="absolute -top-5 -right-2.5 opacity-[0.08] leading-none pointer-events-none"
           style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '260px' }}
@@ -22,7 +22,7 @@ export default function PromoSplit() {
         </button>
       </div>
 
-      <div className="px-[60px] py-20 relative overflow-hidden min-h-[460px] flex flex-col justify-end bg-[var(--accent)] text-[var(--white)]">
+      <div className="px-5 py-14 lg:px-[60px] lg:py-20 relative overflow-hidden min-h-[360px] lg:min-h-[460px] flex flex-col justify-end bg-[var(--accent)] text-[var(--white)]">
         <div
           className="absolute -top-5 -right-2.5 opacity-[0.08] leading-none pointer-events-none"
           style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '260px' }}

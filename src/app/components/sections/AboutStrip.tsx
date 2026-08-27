@@ -1,8 +1,8 @@
 export default function AboutStrip() {
   return (
-    <section className="py-[100px] px-[60px] grid grid-cols-2 gap-20 items-center border-b-[1.5px] border-[var(--black)] bg-[var(--cream)]">
+    <section className="py-14 px-5 gap-10 lg:py-[100px] lg:px-[60px] lg:gap-20 grid grid-cols-1 lg:grid-cols-2 items-center border-b-[1.5px] border-[var(--black)] bg-[var(--cream)]">
       <div>
-        <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '80px', lineHeight: '0.95', letterSpacing: '0.01em' }}>
+        <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(48px, 9vw, 80px)', lineHeight: '0.95', letterSpacing: '0.01em' }}>
           LOCKED IN.<br />
           LOCKED <em className="not-italic text-[var(--accent)]">DOWN.</em>
         </div>

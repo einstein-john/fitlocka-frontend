@@ -21,7 +21,7 @@ export default function Collections() {
         jsonLd={defaultJsonLdOrganization()}
       />
       <section className="min-h-screen">
-        <div className="py-20 px-[60px] border-b-[1.5px] border-[var(--black)]">
+        <div className="py-12 px-5 lg:py-20 lg:px-[60px] border-b-[1.5px] border-[var(--black)]">
           <div className="mb-2.5 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
             Curated Collections
           </div>
@@ -33,11 +33,11 @@ export default function Collections() {
         </div>
 
         {loading ? (
-          <div className="px-[60px] py-20 text-[var(--muted-foreground)]" style={{ fontFamily: "'Space Mono', monospace" }}>
+          <div className="px-5 lg:px-[60px] py-12 lg:py-20 text-[var(--muted-foreground)]" style={{ fontFamily: "'Space Mono', monospace" }}>
             Loading collections…
           </div>
         ) : !categories.length ? (
-          <div className="px-[60px] py-20 max-w-lg" style={{ fontFamily: "'Space Mono', monospace" }}>
+          <div className="px-5 lg:px-[60px] py-12 lg:py-20 max-w-lg" style={{ fontFamily: "'Space Mono', monospace" }}>
             <p className="text-[var(--muted-foreground)] mb-4">No collections yet. Check back soon or browse the full catalog.</p>
             <Link to="/shop" className="text-[var(--accent)] underline underline-offset-4">
               Shop all products
