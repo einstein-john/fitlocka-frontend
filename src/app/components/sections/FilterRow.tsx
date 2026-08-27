@@ -18,7 +18,7 @@ export default function FilterRow() {
   const allActive = onShop && !categoryIdParam;
 
   return (
-    <div className="py-6 px-[60px] border-b-[1.5px] border-[var(--black)] flex gap-3 items-center overflow-x-auto">
+    <div className="py-4 px-5 lg:py-6 lg:px-[60px] border-b-[1.5px] border-[var(--black)] flex gap-3 items-center overflow-x-auto">
       <span
         className="mr-2 text-[var(--mid)] whitespace-nowrap"
         style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase' }}

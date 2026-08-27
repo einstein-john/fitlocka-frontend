@@ -7,8 +7,8 @@ export default function Footer() {
   const { categories } = useCategoriesCatalog(token);
 
   return (
-    <footer className="bg-[var(--black)] text-[var(--white)] px-[60px] pt-[60px] pb-[32px]">
-      <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-[60px] mb-[60px] pb-12 border-b border-white/10">
+    <footer className="bg-[var(--black)] text-[var(--white)] px-5 pt-10 pb-20 lg:px-[60px] lg:pt-[60px] lg:pb-8">
+      <div className="grid grid-cols-1 gap-8 mb-10 pb-8 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-[60px] lg:mb-[60px] lg:pb-12 border-b border-white/10">
         <div>
           <div className="mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '40px', letterSpacing: '0.05em' }}>
             FITL<span className="text-[var(--accent)]">O</span>CKA.
@@ -95,7 +95,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex justify-between items-center text-white/30 text-[10px] tracking-[0.08em]" style={{ fontFamily: "'Space Mono', monospace" }}>
+      <div className="flex flex-col gap-2 lg:flex-row lg:justify-between lg:items-center text-white/30 text-[10px] tracking-[0.08em]" style={{ fontFamily: "'Space Mono', monospace" }}>
         <span>© 2024 FITLOCKA. All rights reserved.</span>
         <span>Designed with ❤ for the culture</span>
       </div>

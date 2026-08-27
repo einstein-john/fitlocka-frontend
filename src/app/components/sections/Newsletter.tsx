@@ -1,11 +1,11 @@
 export default function Newsletter() {
   return (
-    <section className="py-20 px-[60px] border-b-[1.5px] border-[var(--black)] flex justify-between items-center gap-[60px]">
+    <section className="py-12 px-5 gap-8 lg:py-20 lg:px-[60px] lg:gap-[60px] border-b-[1.5px] border-[var(--black)] flex flex-col lg:flex-row lg:justify-between lg:items-center">
       <div className="max-w-[480px]">
         <div className="mb-3 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
           Stay in the loop
         </div>
-        <div className="mb-3 leading-none" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '52px' }}>
+        <div className="mb-3 leading-none" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(38px, 8vw, 52px)' }}>
           FIRST TO<br />THE DROP.
         </div>
         <p className="text-[14px] text-[var(--mid)] leading-[1.7]">
