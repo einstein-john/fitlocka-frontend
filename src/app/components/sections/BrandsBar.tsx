@@ -2,7 +2,7 @@ export default function BrandsBar() {
   const brands = ['NBA', 'NFL', 'NHL', 'MLB', 'SOCCER', 'COLLEGE', 'RUGBY', 'MOTORSPORT'];
 
   return (
-    <div className="py-7 px-[60px] border-b-[1.5px] border-[var(--black)] flex items-center gap-12 overflow-x-auto">
+    <div className="py-5 px-5 gap-8 lg:py-7 lg:px-[60px] lg:gap-12 border-b-[1.5px] border-[var(--black)] flex items-center overflow-x-auto">
       <span
         className="text-[var(--mid)] whitespace-nowrap flex-shrink-0"
         style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase' }}

@@ -18,6 +18,7 @@ import { LegacyEmailConfirmationRedirect, LegacyMagicLinkRedirect } from '@/app/
 import EmailConfirmationCallback from '@/app/components/pages/EmailConfirmationCallback';
 import CartPage from '@/app/components/pages/CartPage';
 import Checkout from '@/app/components/pages/Checkout';
+import Wishlist from '@/app/components/pages/Wishlist';
 import AccountLayout from '@/app/components/pages/AccountLayout';
 import Account from '@/app/components/pages/Account';
 import OrdersList from '@/app/components/pages/OrdersList';
@@ -56,6 +57,7 @@ export const router = createBrowserRouter([
           { path: 'auth/email-confirmation', Component: EmailConfirmationCallback },
           { path: 'cart', Component: CartPage },
           { path: 'checkout', Component: Checkout },
+          { path: 'wishlist', Component: Wishlist },
           {
             path: 'account',
             Component: AccountLayout,

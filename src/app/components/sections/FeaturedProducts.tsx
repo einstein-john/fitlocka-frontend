@@ -14,7 +14,7 @@ export default function FeaturedProducts() {
   }, [token]);
 
   return (
-    <section className="py-20 px-[60px] border-b-[1.5px] border-[var(--black)]">
+    <section className="py-12 px-5 lg:py-20 lg:px-[60px] border-b-[1.5px] border-[var(--black)]">
       <div className="flex justify-between items-end mb-10">
         <div>
           <div className="mb-2.5 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>

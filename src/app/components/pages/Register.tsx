@@ -47,7 +47,7 @@ export default function Register() {
   return (
     <>
       <SeoHead title="Create account — FITLOCKA" description="Join FITLOCKA for retro jerseys and member checkout." canonicalPath="/register" />
-      <section className="min-h-screen px-[60px] py-20 max-w-md mx-auto">
+      <section className="min-h-screen px-5 lg:px-[60px] py-12 lg:py-20 pb-24 lg:pb-20 max-w-md mx-auto">
         <div className="mb-2.5 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
           Join
         </div>

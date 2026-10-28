@@ -7,10 +7,11 @@ import { listCategories } from '@/lib/api/categories';
 import type { Category, Product } from '@/lib/api/types';
 import { getSiteUrl } from '@/lib/env';
 import { getUserFacingErrorMessage } from '@/lib/api/userError';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { Input } from '@/app/components/ui/input';
 import { Button } from '@/app/components/ui/button';
+import FilterSheet, { type FilterState, type SortKey } from '@/app/components/sections/FilterSheet';
 
 export default function Shop() {
   const { token } = useAuth();
@@ -26,6 +27,8 @@ export default function Shop() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [localSearch, setLocalSearch] = useState(searchQ);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [sort, setSort] = useState<SortKey>('newest');
 
   const categoryId = categoryIdParam ? Number(categoryIdParam) : undefined;
   const site = getSiteUrl();
@@ -88,6 +91,27 @@ export default function Shop() {
     setProducts([]);
   };
 
+  /** Sort is client-side over the pages loaded so far — the API exposes no sort param.
+   *  'newest' keeps API order, so it always reflects the full result set. */
+  const visible = useMemo(() => {
+    if (sort === 'newest') return products;
+    const dir = sort === 'price_asc' ? 1 : -1;
+    return [...products].sort((a, b) => (Number(a.price) - Number(b.price)) * dir);
+  }, [products, sort]);
+
+  const applySheet = (next: FilterState) => {
+    // Sort is applied client-side to what's already loaded, so it must not
+    // clear `products` — only a category change triggers a refetch.
+    setSort(next.sort);
+    if (next.categoryId === (categoryIdParam ?? '')) return;
+    const params = new URLSearchParams(searchParams);
+    if (next.categoryId) params.set('categoryId', next.categoryId);
+    else params.delete('categoryId');
+    setSearchParams(params);
+    setPage(1);
+    setProducts([]);
+  };
+
   const hasMore = total > products.length;
 
   return (
@@ -99,17 +123,17 @@ export default function Shop() {
         jsonLd={[defaultJsonLdOrganization(), jsonLdWebSite()]}
       />
       <FilterRow />
-      <section className="py-20 px-[60px] min-h-screen">
+      <section className="py-10 px-5 pb-24 lg:py-20 lg:px-[60px] lg:pb-20 min-h-screen">
         <div className="mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div>
             <div className="mb-2.5 text-[var(--mid)]" style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               All Products
             </div>
-            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '72px', letterSpacing: '0.02em', lineHeight: '1' }}>
+            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(44px, 8vw, 72px)', letterSpacing: '0.02em', lineHeight: '1' }}>
               SHOP JERSEYS
             </div>
           </div>
-          <div className="flex flex-wrap gap-3 items-center max-w-xl">
+          <div className="hidden lg:flex flex-wrap gap-3 items-center max-w-xl">
             <select
               className="h-9 border border-[var(--black)] bg-[var(--background)] px-2 min-w-[160px]"
               value={categoryIdParam ?? ''}
@@ -148,6 +172,15 @@ export default function Shop() {
               </span>
             ) : null}
           </div>
+
+          <button
+            type="button"
+            onClick={() => setFiltersOpen(true)}
+            className="lg:hidden w-full border-[1.5px] border-[var(--black)] bg-transparent py-3.5 cursor-pointer text-[10px] uppercase tracking-[0.12em]"
+            style={{ fontFamily: "'Space Mono', monospace" }}
+          >
+            Filter &amp; sort
+          </button>
         </div>
 
         {error ? (
@@ -162,8 +195,8 @@ export default function Shop() {
           <p className="text-[var(--muted-foreground)]">No products match your filters.</p>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {products.map((product) => (
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 lg:gap-6">
+              {visible.map((product) => (
                 <ProductTile key={product.id} product={product} />
               ))}
             </div>
@@ -183,6 +216,13 @@ export default function Shop() {
           </>
         )}
       </section>
+      <FilterSheet
+        open={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+        categories={categories}
+        value={{ categoryId: categoryIdParam ?? '', sort }}
+        onApply={applySheet}
+      />
     </>
   );
 }

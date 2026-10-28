@@ -6,14 +6,17 @@ import App from '@/app/App';
 import AppToaster from '@/app/components/AppToaster';
 import { AuthProvider } from '@/app/context/AuthContext';
 import { CartProvider } from '@/app/context/CartContext';
+import { WishlistProvider } from '@/app/context/WishlistContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
       <AuthProvider>
         <CartProvider>
-          <App />
-          <AppToaster />
+          <WishlistProvider>
+            <App />
+            <AppToaster />
+          </WishlistProvider>
         </CartProvider>
       </AuthProvider>
     </ThemeProvider>

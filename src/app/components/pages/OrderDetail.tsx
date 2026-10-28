@@ -34,7 +34,7 @@ export default function OrderDetail() {
   return (
     <>
       <SeoHead title={order ? `Order #${order.id} — FITLOCKA` : 'Order — FITLOCKA'} description="Order details." canonicalPath={`/account/orders/${id ?? ''}`} noindex />
-      <section className="min-h-screen px-[60px] py-16 max-w-3xl">
+      <section className="min-h-screen px-5 lg:px-[60px] py-10 lg:py-16 pb-24 lg:pb-16 max-w-3xl">
         <Link to="/account/orders" className="text-sm underline mb-8 inline-block">
           ← All orders
         </Link>
